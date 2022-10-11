@@ -1,6 +1,6 @@
 const {model,Schema}= require('mongoose');
 
-require('./Users')
+require('../models/Users');
 
 const TaskModel = new Schema({
     title:{
