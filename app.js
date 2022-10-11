@@ -6,4 +6,4 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 //Importacion para la conexion a la BD
-const dbConnect = require('./src/db/connection');
+const dbConnect = require('./db/connectionDB');
