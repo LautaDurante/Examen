@@ -23,7 +23,7 @@ CtrlUser.getUsers = async (req,res) => {
 //Controlador de GetUser por ID
 CtrlUser.getUserID = async (req, res) => {
     try {
-        const idUser = req.params.idUser;
+        const idUser = req.user._id;
         const user = await Users.findOne({$and:[{"_id":idUser},{isActive:true}]});
         if(!user){
             return res.status(404).json(
@@ -92,7 +92,7 @@ CtrlUser.putUser = async (req, res) => {
                 message: `La extensión de la contraseña debe ser mayor a 8`
             })
         }
-        const User = await USER.findOne({$and:[{_id: idUser}, {isActive: true}]});
+        const User = await Users.findOne({$and:[{_id: idUser}, {isActive: true}]});
         if(!User){
             return res.status(404).json({
                 message: `El usuario no fue encontrado`

@@ -13,10 +13,10 @@ const {
 } = require('../controllers/user.controllers');
 
 //Ruta GetUsers
-router.get('/user',[validateJWT,isAdmin],getUsers);//Para obtener todos los usuarios
+router.get('/users',[validateJWT,isAdmin],getUsers);//Para obtener todos los usuarios
 
 //Ruta GetUserID
-router.get('/user/:idUser',[validateJWT],getUserID);//Para obtener un usuario por ID
+router.get('/user',[validateJWT],getUserID);//Para obtener un usuario por ID
 
 //Ruta PostUser
 router.post('/user',postUser);//Creo un usuario
