@@ -8,12 +8,12 @@ const CtrlUser = {}
 //Controlador de GetUsers
 CtrlUser.getUsers = async (req,res) => {
     try {
-        const Users = await Users.find({isActive: true});
-        if(Users.length){return res.status(404).json({message:"No se encontró ningún usuario."})}
+        const usuarios = await Users.find({isActive: true});
+        if(!usuarios.length){return res.status(404).json({message:"No se encontró ningún usuario."})}
 
         return res.json({
-            message: `Número de Usuarios encontrados ${Users.length}`,
-            users: Users
+            message: `Número de Usuarios encontrados ${usuarios.length}`,
+            usuarios
         })
     }   catch(error) {
         return res.status(500).json({message:`No se pudieron encontrar los usuarios: ${error.message}`})

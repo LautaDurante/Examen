@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const validarJWT = async (req, res, next) => {
     let token = req.headers.authorization;
 
-    /* verify if token in a request exist */
+    /* verificar si existe el token en una solicitud */
     if(!token){
         return res.status(401).json({
             msg: 'Error de autenticación - no hay token en la petición'
@@ -15,26 +15,25 @@ const validarJWT = async (req, res, next) => {
     };//Devuelve en caso de no recibir el token
 
     try {
-        /* Is obtained idUser, if was validated */
+        /* Se obtiene idUser, si fue validado */
         const {userID} = await jwt.verify(token, process.env.SECRET);
-        /* find User on DB to know if to belongs at system */
+        /* busca el usuario en la base de datos para saber si pertenece al sistema */
         const Usuario = await UserModel.findById(userID);
-        /* If don't exist User throw an error */
+        /* Si no exites, tirar el error */
         if(!Usuario) {
             return res.status(401).json({
-                error: 'Token no válido - usuario no existe en la DB'
+                error: 'Token no válido - el usuario no existe en la DB'
             })
         };//Devuelve en caso de que el usuario no existe en la DB
-        /* Verify if the User is Active */
+        /* verifica si el usuario es Activo */
         if (!Usuario.isActive) {
             return res.status(401).json({
-                message: 'Token no válido - usuario no está activo'
+                message: 'Token no válido - el usuario no está activo'
             })
         };//Devuelve en caso de que el usuario con estado false
-        /* is added the info by user to request what for can be utilized on rest of middlewares*/
         req.user = Usuario;
 
-        /* to be continue of rest the request */
+        /* si cumple todo lo anterior, la conssulta sigue */
         next();//En caso exitoso sigue con la ejecución
     } catch (error) {
         console.log(error.message);

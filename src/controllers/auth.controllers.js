@@ -29,7 +29,7 @@ CtrlAuth.login = async (req, res, next) => {
                 message:"Error al comprobar - Contraseña Incorrecta"
             });
         };//En caso de que la contraseña no coincida
-        const token = await generarJWT(USER); //genera el token apartir de la informacion del usuario
+        const token = await generarJWT(USER); //genera el token apartir de la informacion del usuario ._id
         
         return res.json({token});//Retorno exitoso del token
         
@@ -38,4 +38,4 @@ CtrlAuth.login = async (req, res, next) => {
     }
 }
 
-module.exports = Ctrl
+module.exports = CtrlAuth;

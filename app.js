@@ -21,7 +21,9 @@ app.use(morgan('tiny'));
 app.use(express.json());
 
 //importacion de Rutas
-//  
+app.use(require('./src/routes/user.routes'))// rutas del usuario
+app.use(require('./src/routes/auth.routes'))// rutas de login 
+app.use(require('./src/routes/task.routes'))// rutas del tareas
 
 //Inicio del Servidor
 app.listen(port, () => console.log(`Servidor corriendo en http://localhost:${port}`));
