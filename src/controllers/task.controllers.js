@@ -45,12 +45,11 @@ CtrlTask.getTask_idUser = async (req, res) => {
 CtrlTask.postTask = async (req, res) => {
     try {
         const idUser = req.user._id
-        const {title,description, fecha, estado} = req.body;
+        const {title,description} = req.body;
         if(!idUser || !title || !description){
             return res.status(400).json({
                 message:"La información proporcionada no es la adecuada.",
                 opcionesObligatorias:["idUser", "title", "description"],
-                opcionesAdicionales:["fecha","estado"]
             });
         }
         //Comprueba si existe el user para crear la tarea
@@ -70,8 +69,6 @@ CtrlTask.postTask = async (req, res) => {
         const nuevaTarea = new TaskModel({
             title,
             description,
-            fecha,
-            estado,
             idUser
         });
         const tareaRegistrada = await nuevaTarea.save();
@@ -94,13 +91,12 @@ CtrlTask.putTask = async (req, res) => {
     try {
         const idTask = req.params.idTask;
         const userID = req.user._id;
-        const {title, description, fecha, estado} = req.body;
+        const {title, description} = req.body;
         if(!idTask || !title || !description){
             return res.status(400).json({
                 message:"No viene la ID o información requerida",
-                opcionesObligatorias:["title", "description"],
-                opcionesAdicionales:["fecha", "estado"],
-                InformacionAdicional:"Recuerde que el id de la tarea tiene que estar despues de /task/"
+                datosObligatorios:["idUser", "title", "description"],
+                datosAdicional:"La id de la tarea tiene que estar despues del /task/"
             })
         }
         const Task = await TaskModel.findById(idTask);
