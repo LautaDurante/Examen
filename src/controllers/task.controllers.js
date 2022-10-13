@@ -135,6 +135,7 @@ CtrlTask.completeTask = async (req, res) => {
                 message:"No viene la ID "
             })
         }
+        //findByIdAndUpdate({})
         const Task = await TaskModel.findById(idTask);
         if(!Task || !Task.isActive){
             return res.status(404).json({
@@ -143,6 +144,8 @@ CtrlTask.completeTask = async (req, res) => {
         }
         const userIdString = userID.toString();
         const tareaIdString = Task.idUser.toString();
+        //(TaskModel.isCompleted)?res.status(400).json({message:"La tarea fue completada"}):
+        //TaskModel.findByIdAndUpdate({_id:idTask},{isCompleted:true})
         if(TaskModel.isCompleted){
             return res.status(400).json({message:"La tarea fue completada"})
         }
