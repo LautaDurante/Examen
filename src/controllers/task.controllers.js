@@ -125,6 +125,44 @@ CtrlTask.putTask = async (req, res) => {
     }
 };
 
+//Completado de tarea
+CtrlTask.completeTask = async (req, res) => {
+    try {
+        const idTask = req.params.idTask;
+        const userID = req.user._id;
+        if(!idTask){
+            return res.status(400).json({
+                message:"No viene la ID "
+            })
+        }
+        const Task = await TaskModel.findById(idTask);
+        if(!Task || !Task.isActive){
+            return res.status(404).json({
+                message: 'No se encuentra la tarea',
+            })
+        }
+        const userIdString = userID.toString();
+        const tareaIdString = Task.idUser.toString();
+        if(TaskModel.isCompleted){
+            return res.status(400).json({message:"La tarea fue completada"})
+        }
+        if((userIdString === tareaIdString)|| req.user.role === 'user_admin'){
+            await Task.updateOne({isCompleted: true})
+            return res.status(201).json({
+                message: 'La tarea fue actualizada exitosamente.',
+            });
+        }
+        return res.status(401).json({
+            message: 'No tiene permisos para editar la tarea',
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error interno del servidor y no pudo actualizar la tarea",
+            error: error.message
+        })
+    }
+};
+
 //Elimino una tarea
 
 CtrlTask.deleteTask = async (req, res) => {

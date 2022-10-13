@@ -15,6 +15,10 @@ const TaskModel = new Schema({
         type:Boolean,
         default:true
     },
+    isCompleted:{
+        type:Boolean,
+        default:false
+    },
     idUser:{
         type:Schema.ObjectId,
         ref: 'Users',

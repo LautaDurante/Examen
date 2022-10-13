@@ -7,6 +7,7 @@ const {
     getTask_idUser,
     postTask,
     putTask,
+    completeTask,
     deleteTask
 } = require('../controllers/task.controllers');
 
@@ -18,6 +19,9 @@ router.get('/task/user/',[validateJWT],getTask_idUser);
 
 //Ruta postTask
 router.post('/task',[validateJWT],postTask);
+
+//Ruta Complete
+router.put('/task/:idTask/complete',[validateJWT],completeTask);
 
 //Ruta putTask
 router.put('/task/:idTask',[validateJWT],putTask);
