@@ -53,11 +53,6 @@ CtrlUser.getUserID = async (req, res) => {
 CtrlUser.postUser = async (req, res) => {
     try {
         const {username, password,email} = req.body;
-        if(username.length < 8 && password.length < 8){
-            return res.status(404).json({
-                message:"La extensión mínima del nombre de usuario o contraseña es menor a 8"
-            })
-        }
         // Encriptando la contraseña de usuario
         const newPassword = bcrypt.hashSync(password,10);//Mecanismo de encriptado de la contraseña
 
@@ -85,11 +80,6 @@ CtrlUser.putUser = async (req, res) => {
             return res.status(400).json({
                 message: `No viene id o información en la petición.`,
                 opcionesDeCuerpo:["password","email"]
-            })
-        }
-        if(password.length < 8){
-            return res.status(404).json({
-                message: `La extensión de la contraseña debe ser mayor a 8`
             })
         }
         const User = await Users.findOne({$and:[{_id: idUser}, {isActive: true}]});
