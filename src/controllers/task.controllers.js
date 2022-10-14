@@ -105,7 +105,7 @@ CtrlTask.putTask = async (req, res) => {
                 message: 'No se encuentra la tarea',
             })
         }
-        const userIdString = userID.toString();
+        const userIdString = userID.toString();// tostring se ocupara para cambiar en este caso el objeto a string.
         const tareaIdString = Task.idUser.toString();
 
         if((userIdString === tareaIdString)|| req.user.role === 'user_admin'){
