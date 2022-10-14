@@ -37,3 +37,13 @@ npm run dev
 ```bash
 npm start
 ```
+
+### .env
+
+```bash
+PORT=3000
+
+URI_MONGODB='mongodb+srv://lautarodurante:lautaro02@programacionexamen.b7jnmam.mongodb.net/user?retryWrites=true&w=majority'
+
+SECRET=Salmon
+```
